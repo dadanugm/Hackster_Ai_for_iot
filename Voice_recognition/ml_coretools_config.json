@@ -1,0 +1,8 @@
+{
+    "headroom_weights": 6,
+    "key_model": "VOICE_REC",
+    "load_model": "C:/Users/Dadan/mtw/Voice_recognition/pretrained_models/voice_model.h5",
+    "max_samples": 100,
+    "random_input": 1,
+    "run_mode": "deploy"
+}

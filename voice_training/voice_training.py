@@ -18,14 +18,14 @@ np.random.seed(seed)
 ################ Get dataset ##################
 DATASET_PATH = 'data/mini_speech_commands'
 data_dir = pathlib.Path(DATASET_PATH)
-'''
+
 if not data_dir.exists():
   tf.keras.utils.get_file(
       'mini_speech_commands.zip',
       origin="http://storage.googleapis.com/download.tensorflow.org/data/mini_speech_commands.zip",
       extract=True,
       cache_dir='.', cache_subdir='data')
-'''
+
 ############## get label #########
 commands = np.array(tf.io.gfile.listdir(str(data_dir)))
 commands = commands[commands != 'README.md']
@@ -82,7 +82,7 @@ def get_waveform_and_label(file_path):
 
 
 ########### autotune ########
-AUTOTUNE = tf.data.AUTOTUNE
+AUTOTUNE = tf.data.experimental.AUTOTUNE
 files_ds = tf.data.Dataset.from_tensor_slices(train_files)
 waveform_ds = files_ds.map(map_func=get_waveform_and_label,
                            num_parallel_calls=AUTOTUNE)
@@ -166,11 +166,15 @@ plot_spectrogram(spectrogram.numpy(), axes[1])
 axes[1].set_title('Spectrogram')
 plt.show()
 
-
 ######### Get spectogram and label ###############
 def get_spectrogram_and_label_id(audio, label):
+    global cmd_counter
+    print("get_spectrogram_and_label_id")
     spectrogram = get_spectrogram(audio)
-    label_id = tf.argmax(label == commands)
+    spectrogram = tf.expand_dims(spectrogram, -1)
+    print (commands)
+    print (type(commands))
+    label_id = tf.argmax(tf.cast(label == commands, "uint32"))
     return spectrogram, label_id
 
 
@@ -187,7 +191,7 @@ for i, (spectrogram, label_id) in enumerate(spectrogram_ds.take(n)):
     r = i // cols
     c = i % cols
     ax = axes[r][c]
-    plot_spectrogram(spectrogram.numpy(), ax)
+    plot_spectrogram(np.squeeze(spectrogram.numpy()), ax)
     ax.set_title(commands[label_id.numpy()])
     ax.axis('off')
 
@@ -223,7 +227,7 @@ print('Input shape:', input_shape)
 num_labels = len(commands)
 
 # Instantiate the `tf.keras.layers.Normalization` layer.
-norm_layer = layers.Normalization()
+norm_layer = layers.experimental.preprocessing.Normalization()
 # Fit the state of the layer to the spectrograms
 # with `Normalization.adapt`.
 norm_layer.adapt(data=spectrogram_ds.map(map_func=lambda spec, label: spec))
@@ -231,7 +235,7 @@ norm_layer.adapt(data=spectrogram_ds.map(map_func=lambda spec, label: spec))
 model = models.Sequential([
     layers.Input(shape=input_shape),
     # Downsample the input.
-    layers.Resizing(32, 32),
+    layers.experimental.preprocessing.Resizing(32, 32),
     # Normalize.
     norm_layer,
     layers.Conv2D(32, 3, activation='relu'),

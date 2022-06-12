@@ -1,0 +1,33 @@
+
+***************************************************
+MTB ML inference
+	Build host       	:	Windows
+	Compiler         	:	GCC 10.3
+	Config           	:	Unknown
+	Float ABI        	:	Unknown
+	Model name       	:	VOICE_REC
+	Model memory:    	:	RAM (0x08002314)
+	Layers           	:	6
+	Input_nodes      	:	15996
+	Output_nodes     	:	8
+	ML Lib Version   	:	120
+	ML Lib Input Type	:	int16
+	ML Lib Weight Type	:	int16
+	ML Coretool Version	:	0x10200
+
+Memory usage: 
+	Scratch memory(dynamic)    	:   298.79 kB
+	Persistent memory(dynamic) 	:     0.81 kB
+	Weights & biases  	:   117.22 kB
+***************************************************
+ML_READY
+ML_MODEL_DATA
+0x08 0x00 0x00 0x00 0x24 0xab 0x04 0x00 0x40 0x03 0x00 0x00 0x00 0x00 0x00 0x00 0x80 0xd3 0x01 0x00 
+ML_READY
+
+Received: num frames:100 frame size:15996 in_size: 4 out_size: 4 in_q_fixed:-1
+ERROR: Streaming data size (4) doesn't match NN data size (2), aborting
+
+Profiling task failed!
+Restarting...
+Waiting for the data stream to begin...
