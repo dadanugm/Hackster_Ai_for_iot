@@ -1,0 +1,491 @@
+C:/Users/Dadan/ModusToolbox/tools_2.4/ml-coretools/ml-coretools.exe deploy --output C:/Users/Dadan/mtw/Voice_recognition/mtb_ml_gen --config C:/Users/Dadan/mtw/Voice_recognition/ml_coretools_config.json --advanced_mem_opt
+
+[INFO] Deploy mode (data and model)
+
+
+
+[INFO] JSON config file: C:\Users\Dadan\mtw\Voice_recognition\ml_coretools_config.json
+[INFO] Output directory: C:\Users\Dadan\mtw\Voice_recognition\mtb_ml_gen
+[INFO] Starting ml-coretools model converter...
+[INFO] Reading config JSON file...
+
+
+
+[INFO] Loading Keras model from C:\Users\Dadan\mtw\Voice_recognition\pretrained_models\voice_model.h5 ...
+
+[INFO] TensorFlow Keras version: 2.3.0-tf
+
+[INFO] Model loaded successfully
+
+[INFO] Model summary:
+
+
+
+Model: "sequential"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+conv2d (Conv2D)              (None, 127, 122, 4)       40        
+_________________________________________________________________
+conv2d_1 (Conv2D)            (None, 125, 120, 4)       148       
+_________________________________________________________________
+max_pooling2d (MaxPooling2D) (None, 62, 60, 4)         0         
+_________________________________________________________________
+dropout (Dropout)            (None, 62, 60, 4)         0         
+_________________________________________________________________
+flatten (Flatten)            (None, 14880)             0         
+_________________________________________________________________
+dense (Dense)                (None, 4)                 59524     
+_________________________________________________________________
+dropout_1 (Dropout)          (None, 4)                 0         
+_________________________________________________________________
+dense_1 (Dense)              (None, 8)                 40        
+=================================================================
+Total params: 59,752
+Trainable params: 59,752
+Non-trainable params: 0
+_________________________________________________________________
+
+
+
+[INFO] Optimizing MTB-ML model...
+
+[INFO] 	Replacing Sequential layers where necessary...
+
+[INFO] Optimizing MTB-ML model...
+
+[INFO] 	Removing Dropout layers where necessary...
+
+[INFO] 	Folding any BatchNormalizations where possible to do so...
+
+[INFO] 	Folding any Activations where possible to do so...
+
+
+[INFO] Parsing model to get task (classification or regresssion)...
+[INFO] Task is regression
+
+[INFO] 8 outputs/classes
+
+
+[INFO] Creating basic random data...
+
+[INFO] Dataset features have total shape (100, 129, 124, 1)
+
+[INFO] Dataset labels have total shape (100, 1)
+[INFO] Generating reference evaluation output for model ...
+
+WARNING:tensorflow:AutoGraph could not transform <function Model.make_predict_function.<locals>.predict_function at 0x00000297D775A828> and will run it as-is.
+Please report this to the TensorFlow team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output.
+Cause: Unable to locate the source code of <function Model.make_predict_function.<locals>.predict_function at 0x00000297D775A828>. Note that functions defined in certain environments, like the interactive Python shell do not expose their source code. If that is the case, you should to define them in a .py source file. If you are certain the code is graph-compatible, wrap the call using @tf.autograph.do_not_convert. Original error: could not get source code
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+
+AutoGraph could not transform <function Model.make_predict_function.<locals>.predict_function at 0x00000297D775A828> and will run it as-is.
+Please report this to the TensorFlow team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output.
+Cause: Unable to locate the source code of <function Model.make_predict_function.<locals>.predict_function at 0x00000297D775A828>. Note that functions defined in certain environments, like the interactive Python shell do not expose their source code. If that is the case, you should to define them in a .py source file. If you are certain the code is graph-compatible, wrap the call using @tf.autograph.do_not_convert. Original error: could not get source code
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+
+[INFO] Model reference evaluation complete.
+
+
+[INFO] Converting model to optimized C code kernels for PC & MCU reference evaluation...
+
+[WARNING] Weights, bias difference is large in 8-bit fixed-point
+
+[INFO]	Writing model prms to C:/Users/Dadan/mtw/Voice_recognition/mtb_ml_gen\mtb_ml_models/VOICE_REC_model_prms.bin
+
+[INFO]	Writing model floating-point weights to C:/Users/Dadan/mtw/Voice_recognition/mtb_ml_gen\mtb_ml_models/VOICE_REC_model_flt.bin
+
+[INFO]	Writing model int16 weights to C:/Users/Dadan/mtw/Voice_recognition/mtb_ml_gen\mtb_ml_models/VOICE_REC_model_fixed16.bin
+
+[INFO]	Writing model int8 weights to C:/Users/Dadan/mtw/Voice_recognition/mtb_ml_gen\mtb_ml_models/VOICE_REC_model_fixed8.bin
+
+[INFO]	Creating flat buffer files for embedded deployment.
+
+[INFO]	Writing model resource info to C:/Users/Dadan/mtw/Voice_recognition/mtb_ml_gen\info/VOICE_REC_model_info.json.
+
+[INFO] Model conversion complete.
+
+[INFO]	  Model   |  Cycles  |  Model Memory   | Scratch Memory  |
+
+[INFO]	 Floating | 36913768 |  239276 bytes   |  487904 bytes   |
+[INFO]	 Int16x16 | 25324496 |  119744 bytes   |  305956 bytes   |
+[INFO]	 Int16x8  | 31119132 |   59978 bytes   |  305956 bytes   |
+
+[INFO]	  Int8x8  | 29123170 |   59978 bytes   |  183968 bytes   |
+[INFO] Model conversion complete.
+
+
+[INFO] Converting validation data for PC & MCU reference evaluation...
+
+[INFO]	Writing eval data in floating point representation...
+
+[INFO]	Writing eval data in 16-bit fixed point representation...
+
+[INFO]	Writing eval data in 8-bit fixed point representation...
+
+[INFO] Data conversion complete.
+
+
+[INFO] Finished ml-coretools model converter successfully.
+
+cmd.exe /c copy /y info\VOICE_REC_* info_target
+
+info\VOICE_REC_log.txt
+
+info\VOICE_REC_model_info.json
+
+        2 file(s) copied.
+
+C:/Users/Dadan/ModusToolbox/tools_2.4/ml-coretools/ml-coretools-streaming.exe -m int16x16 -x C:/Users/Dadan/mtw/Voice_recognition/mtb_ml_gen/mtb_ml_regression_data/VOICE_REC_x_data_fixed16.bin -y C:/Users/Dadan/mtw/Voice_recognition/mtb_ml_gen/mtb_ml_regression_data/VOICE_REC_y_data_fixed.bin -p COM4
+
+MTB-ML Data streaming app
+
+Model type: 		int16x16
+X data file: 		C:/Users/Dadan/mtw/Voice_recognition/mtb_ml_gen/mtb_ml_regression_data/VOICE_REC_x_data_fixed16.bin
+Y data file: 		C:/Users/Dadan/mtw/Voice_recognition/mtb_ml_gen/mtb_ml_regression_data/VOICE_REC_y_data_fixed.bin
+Target port: 		COM4
+CyBridge: Info: Start API initialization
+
+
+CyBridge: Info: Connected - COM4
+
+
+
+Connected device: COM4
+CyBridge: Info: Hardware initialization complete 596 ms
+
+
+CyBridge version: 3.2.0.1003
+KitProg3 FW version: 2.21.1005
+
+Communication port COM4
+BaudRate set to 1000000
+Data bits set to 8
+Parity set to None
+Stop bits set to One
+
+Flushed UART buffer
+
+Waiting for the Target to respond
+
+Sending ML_START
+>> 
+
+>> ***************************************************
+
+>> MTB ML inference
+
+>> 	Build host       	:	Windows
+
+>> 	Compiler         	:	GCC 10.3
+
+>> 	Config           	:	Unknown
+
+>> 	Float ABI        	:	Unknown
+
+>> 	Model name       	:	VOICE_REC
+
+>> 	Model memory:    	:	RAM (0x08002314)
+
+>> 	Layers           	:	6
+
+>> 	Input_nodes      	:	15996
+
+>> 	Output_nodes     	:	8
+
+>> 	ML Lib Version   	:	120
+
+>> 	ML Lib Input Type	:	int16
+
+>> 	ML Lib Weight Type	:	int16
+
+>> 	ML Coretool Version	:	0x10200
+
+>> 
+
+>> Memory usage: 
+
+>> 	Scratch memory(dynamic)    	:   298.79 kB
+
+>> 	Persistent memory(dynamic) 	:     0.81 kB
+
+>> 	Weights & biases  	:   117.22 kB
+
+>> ***************************************************
+
+>> ML_READY
+
+Board responded, requesting the model data
+>> ML_MODEL_DATA
+
+Received model info:
+model_sz:          119680
+n_out_classes:     8
+persistent_mem:    832
+scratch_mem:       305956
+recurrent_ts_size: 0
+
+Sending dataset info:
+Number of frames: 100 frame size: 15996
+Input size: 2 output size: 2
+Fixed-point Q-Factor: 9
+
+>> ML_READY
+
+Streaming test data...
+
+Sending frame 1/100 [                                                  ]   1%
+
+Sending frame 2/100 [#                                                 ]   2%
+
+Sending frame 3/100 [#                                                 ]   3%
+
+Sending frame 4/100 [##                                                ]   4%
+
+Sending frame 5/100 [##                                                ]   5%
+
+Sending frame 6/100 [###                                               ]   6%
+
+Sending frame 7/100 [###                                               ]   7%
+
+Sending frame 8/100 [####                                              ]   8%
+
+Sending frame 9/100 [####                                              ]   9%
+
+Sending frame 10/100 [#####                                             ]  10%
+
+Sending frame 11/100 [#####                                             ]  11%
+
+Sending frame 12/100 [######                                            ]  12%
+
+Sending frame 13/100 [######                                            ]  13%
+
+Sending frame 14/100 [#######                                           ]  14%
+
+Sending frame 15/100 [#######                                           ]  15%
+
+Sending frame 16/100 [########                                          ]  16%
+
+Sending frame 17/100 [########                                          ]  17%
+
+Sending frame 18/100 [#########                                         ]  18%
+
+Sending frame 19/100 [#########                                         ]  19%
+
+Sending frame 20/100 [##########                                        ]  20%
+
+Sending frame 21/100 [##########                                        ]  21%
+
+Sending frame 22/100 [###########                                       ]  22%
+
+Sending frame 23/100 [###########                                       ]  23%
+
+Sending frame 24/100 [############                                      ]  24%
+
+Sending frame 25/100 [############                                      ]  25%
+
+Sending frame 26/100 [#############                                     ]  26%
+
+Sending frame 27/100 [#############                                     ]  27%
+
+Sending frame 28/100 [##############                                    ]  28%
+
+Sending frame 29/100 [##############                                    ]  29%
+
+Sending frame 30/100 [###############                                   ]  30%
+
+Sending frame 31/100 [###############                                   ]  31%
+
+Sending frame 32/100 [################                                  ]  32%
+
+Sending frame 33/100 [################                                  ]  33%
+
+Sending frame 34/100 [#################                                 ]  34%
+
+Sending frame 35/100 [#################                                 ]  35%
+
+Sending frame 36/100 [##################                                ]  36%
+
+Sending frame 37/100 [##################                                ]  37%
+
+Sending frame 38/100 [###################                               ]  38%
+
+Sending frame 39/100 [###################                               ]  39%
+
+Sending frame 40/100 [####################                              ]  40%
+
+Sending frame 41/100 [####################                              ]  41%
+
+Sending frame 42/100 [#####################                             ]  42%
+
+Sending frame 43/100 [#####################                             ]  43%
+
+Sending frame 44/100 [######################                            ]  44%
+
+Sending frame 45/100 [######################                            ]  45%
+
+Sending frame 46/100 [#######################                           ]  46%
+
+Sending frame 47/100 [#######################                           ]  47%
+
+Sending frame 48/100 [########################                          ]  48%
+
+Sending frame 49/100 [########################                          ]  49%
+
+Sending frame 50/100 [#########################                         ]  50%
+
+Sending frame 51/100 [#########################                         ]  51%
+
+Sending frame 52/100 [##########################                        ]  52%
+
+Sending frame 53/100 [##########################                        ]  53%
+
+Sending frame 54/100 [###########################                       ]  54%
+
+Sending frame 55/100 [###########################                       ]  55%
+
+Sending frame 56/100 [############################                      ]  56%
+
+Sending frame 57/100 [############################                      ]  57%
+
+Sending frame 58/100 [#############################                     ]  58%
+
+Sending frame 59/100 [#############################                     ]  59%
+
+Sending frame 60/100 [##############################                    ]  60%
+
+Sending frame 61/100 [##############################                    ]  61%
+
+Sending frame 62/100 [###############################                   ]  62%
+
+Sending frame 63/100 [###############################                   ]  63%
+
+Sending frame 64/100 [################################                  ]  64%
+
+Sending frame 65/100 [################################                  ]  65%
+
+Sending frame 66/100 [#################################                 ]  66%
+
+Sending frame 67/100 [#################################                 ]  67%
+
+Sending frame 68/100 [##################################                ]  68%
+
+Sending frame 69/100 [##################################                ]  69%
+
+Sending frame 70/100 [###################################               ]  70%
+
+Sending frame 71/100 [###################################               ]  71%
+
+Sending frame 72/100 [####################################              ]  72%
+
+Sending frame 73/100 [####################################              ]  73%
+
+Sending frame 74/100 [#####################################             ]  74%
+
+Sending frame 75/100 [#####################################             ]  75%
+
+Sending frame 76/100 [######################################            ]  76%
+
+Sending frame 77/100 [######################################            ]  77%
+
+Sending frame 78/100 [#######################################           ]  78%
+
+Sending frame 79/100 [#######################################           ]  79%
+
+Sending frame 80/100 [########################################          ]  80%
+
+Sending frame 81/100 [########################################          ]  81%
+
+Sending frame 82/100 [#########################################         ]  82%
+
+Sending frame 83/100 [#########################################         ]  83%
+
+Sending frame 84/100 [##########################################        ]  84%
+
+Sending frame 85/100 [##########################################        ]  85%
+
+Sending frame 86/100 [###########################################       ]  86%
+
+Sending frame 87/100 [###########################################       ]  87%
+
+Sending frame 88/100 [############################################      ]  88%
+
+Sending frame 89/100 [############################################      ]  89%
+
+Sending frame 90/100 [#############################################     ]  90%
+
+Sending frame 91/100 [#############################################     ]  91%
+
+Sending frame 92/100 [##############################################    ]  92%
+
+Sending frame 93/100 [##############################################    ]  93%
+
+Sending frame 94/100 [###############################################   ]  94%
+
+Sending frame 95/100 [###############################################   ]  95%
+
+Sending frame 96/100 [################################################  ]  96%
+
+Sending frame 97/100 [################################################  ]  97%
+
+Sending frame 98/100 [################################################# ]  98%
+
+Sending frame 99/100 [################################################# ]  99%
+
+Sending frame 100/100 [##################################################] 100%
+
+Streaming completed, checking results...
+
+Scratch memory    	:   298.79 kB
+
+Persistent memory 	:     0.81 kB
+
+Weights & biases  	:   116.88 kB
+
+Accuracy for 16-bit fixed-point implementation : 100.00
+
+
+
+C:/Users/Dadan/ModusToolbox/tools_2.4/ml-coretools/ml-coretools.exe validate --input_dir C:/Users/Dadan/mtw/Voice_recognition/mtb_ml_gen/info_target --output_dir C:/Users/Dadan/mtw/Voice_recognition/cdv_results_target --config cdv_requirements.json --key VOICE_REC -m 16x16
+
+[INFO] JSON config file: C:\Users\Dadan\mtw\Voice_recognition\cdv_requirements.json
+
+[INFO] Data directory: C:\Users\Dadan\mtw\Voice_recognition\mtb_ml_gen\info_target
+[INFO] Validate models:
+-----------------------
+float	-	False
+16x16	-	True
+
+16x8	-	False
+8x8	-	False
+-----------------------
+Running cross-domain verification...
+
+
+[INFO] Performing cross-domain verification in normal mode
+
+[INFO] Models to evaluate: ['16x16']
+[INFO]: Expecting log files: ['VOICE_REC_log.txt', 'log_int16x16.txt']
+
+
+
+[INFO] Evaluating 16x16 model...
+
+[INFO] Model passed 16x16 relative accuracy verification
+[INFO] Model passed 16x16 mismatch error verification
+
+[INFO] Model passed 16x16 scratch memory verification
+[INFO] Saving Cross-domain verification outputs for 16x16 to C:/Users/Dadan/mtw/Voice_recognition/cdv_results_target...
+
+[INFO] Cross-domain verification outputs for 16x16 saved to C:/Users/Dadan/mtw/Voice_recognition/cdv_results_target
+
+
+
+[INFO] Overall CDV Results 
+-------------------------
+
+Int16x16 model: PASS
+
+
+
+Cross-domain verification completed.

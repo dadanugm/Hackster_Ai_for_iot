@@ -1,0 +1,243 @@
+Info: Start API initialization
+
+Info: Connected - COM4
+
+Info: Hardware initialization complete 628 ms
+
+C:/Users/Dadan/ModusToolbox/tools_2.4/ml-coretools/ml-coretools.exe deploy --output C:/Users/Dadan/mtw/Voice_recognition/mtb_ml_gen --config C:/Users/Dadan/mtw/Voice_recognition/ml_coretools_config.json --advanced_mem_opt
+
+[INFO] Deploy mode (data and model)
+
+
+
+[INFO] JSON config file: C:\Users\Dadan\mtw\Voice_recognition\ml_coretools_config.json
+[INFO] Output directory: C:\Users\Dadan\mtw\Voice_recognition\mtb_ml_gen
+[INFO] Starting ml-coretools model converter...
+[INFO] Reading config JSON file...
+
+
+
+
+[INFO] Loading Keras model from C:\Users\Dadan\mtw\Voice_recognition\pretrained_models\voice_model.h5 ...
+
+[INFO] TensorFlow Keras version: 2.3.0-tf
+
+[INFO] Model loaded successfully
+
+[INFO] Model summary:
+
+
+
+Model: "sequential"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+conv2d (Conv2D)              (None, 127, 122, 4)       40        
+_________________________________________________________________
+conv2d_1 (Conv2D)            (None, 125, 120, 4)       148       
+_________________________________________________________________
+max_pooling2d (MaxPooling2D) (None, 62, 60, 4)         0         
+_________________________________________________________________
+dropout (Dropout)            (None, 62, 60, 4)         0         
+_________________________________________________________________
+flatten (Flatten)            (None, 14880)             0         
+_________________________________________________________________
+dense (Dense)                (None, 4)                 59524     
+_________________________________________________________________
+dropout_1 (Dropout)          (None, 4)                 0         
+_________________________________________________________________
+dense_1 (Dense)              (None, 8)                 40        
+=================================================================
+Total params: 59,752
+Trainable params: 59,752
+Non-trainable params: 0
+_________________________________________________________________
+
+
+
+[INFO] Optimizing MTB-ML model...
+
+[INFO] 	Replacing Sequential layers where necessary...
+
+[INFO] Optimizing MTB-ML model...
+
+[INFO] 	Removing Dropout layers where necessary...
+
+[INFO] 	Folding any BatchNormalizations where possible to do so...
+
+[INFO] 	Folding any Activations where possible to do so...
+
+
+[INFO] Parsing model to get task (classification or regresssion)...
+
+[INFO] Task is regression
+
+[INFO] 8 outputs/classes
+
+
+[INFO] Creating basic random data...
+
+[INFO] Dataset features have total shape (100, 129, 124, 1)
+
+[INFO] Dataset labels have total shape (100, 1)
+[INFO] Generating reference evaluation output for model ...
+
+WARNING:tensorflow:AutoGraph could not transform <function Model.make_predict_function.<locals>.predict_function at 0x00000254253FB828> and will run it as-is.
+Please report this to the TensorFlow team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output.
+Cause: Unable to locate the source code of <function Model.make_predict_function.<locals>.predict_function at 0x00000254253FB828>. Note that functions defined in certain environments, like the interactive Python shell do not expose their source code. If that is the case, you should to define them in a .py source file. If you are certain the code is graph-compatible, wrap the call using @tf.autograph.do_not_convert. Original error: could not get source code
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+
+AutoGraph could not transform <function Model.make_predict_function.<locals>.predict_function at 0x00000254253FB828> and will run it as-is.
+Please report this to the TensorFlow team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output.
+Cause: Unable to locate the source code of <function Model.make_predict_function.<locals>.predict_function at 0x00000254253FB828>. Note that functions defined in certain environments, like the interactive Python shell do not expose their source code. If that is the case, you should to define them in a .py source file. If you are certain the code is graph-compatible, wrap the call using @tf.autograph.do_not_convert. Original error: could not get source code
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+
+[INFO] Model reference evaluation complete.
+
+
+[INFO] Converting model to optimized C code kernels for PC & MCU reference evaluation...
+
+[WARNING] Weights, bias difference is large in 8-bit fixed-point
+
+[INFO]	Writing model prms to C:/Users/Dadan/mtw/Voice_recognition/mtb_ml_gen\mtb_ml_models/VOICE_REC_model_prms.bin
+
+[INFO]	Writing model floating-point weights to C:/Users/Dadan/mtw/Voice_recognition/mtb_ml_gen\mtb_ml_models/VOICE_REC_model_flt.bin
+
+[INFO]	Writing model int16 weights to C:/Users/Dadan/mtw/Voice_recognition/mtb_ml_gen\mtb_ml_models/VOICE_REC_model_fixed16.bin
+
+[INFO]	Writing model int8 weights to C:/Users/Dadan/mtw/Voice_recognition/mtb_ml_gen\mtb_ml_models/VOICE_REC_model_fixed8.bin
+
+[INFO]	Creating flat buffer files for embedded deployment.
+
+[INFO]	Writing model resource info to C:/Users/Dadan/mtw/Voice_recognition/mtb_ml_gen\info/VOICE_REC_model_info.json.
+
+[INFO] Model conversion complete.
+
+[INFO]	  Model   |  Cycles  |  Model Memory   | Scratch Memory  |
+
+[INFO]	 Floating | 36913768 |  239276 bytes   |  487904 bytes   |
+[INFO]	 Int16x16 | 25324496 |  119744 bytes   |  305956 bytes   |
+[INFO]	 Int16x8  | 31119132 |   59978 bytes   |  305956 bytes   |
+[INFO]	  Int8x8  | 29123170 |   59978 bytes   |  183968 bytes   |
+[INFO] Model conversion complete.
+
+
+[INFO] Converting validation data for PC & MCU reference evaluation...
+
+[INFO]	Writing eval data in floating point representation...
+
+[INFO]	Writing eval data in 16-bit fixed point representation...
+
+[INFO]	Writing eval data in 8-bit fixed point representation...
+
+[INFO] Data conversion complete.
+
+
+[INFO] Finished ml-coretools model converter successfully.
+
+cmd.exe /c copy /y info\VOICE_REC_* info_target
+
+info\VOICE_REC_log.txt
+
+info\VOICE_REC_model_info.json
+
+        2 file(s) copied.
+
+C:/Users/Dadan/ModusToolbox/tools_2.4/ml-coretools/ml-coretools-streaming.exe -m int8x8 -x C:/Users/Dadan/mtw/Voice_recognition/mtb_ml_gen/mtb_ml_regression_data/VOICE_REC_x_data_fixed8.bin -y C:/Users/Dadan/mtw/Voice_recognition/mtb_ml_gen/mtb_ml_regression_data/VOICE_REC_y_data_fixed.bin -p COM4
+
+MTB-ML Data streaming app
+
+Model type: 		int8x8
+X data file: 		C:/Users/Dadan/mtw/Voice_recognition/mtb_ml_gen/mtb_ml_regression_data/VOICE_REC_x_data_fixed8.bin
+Y data file: 		C:/Users/Dadan/mtw/Voice_recognition/mtb_ml_gen/mtb_ml_regression_data/VOICE_REC_y_data_fixed.bin
+Target port: 		COM4
+CyBridge: Info: Start API initialization
+
+
+CyBridge: Info: Connected - COM4
+
+
+
+Connected device: COM4
+CyBridge: Info: Hardware initialization complete 660 ms
+
+
+CyBridge version: 3.2.0.1003
+KitProg3 FW version: 2.21.1005
+
+Communication port COM4
+BaudRate set to 1000000
+Data bits set to 8
+Parity set to None
+Stop bits set to One
+
+Flushed UART buffer
+
+Waiting for the Target to respond
+
+Sending ML_START
+>> 
+
+>> ***************************************************
+
+>> MTB ML inference
+
+>> 	Build host       	:	Windows
+
+>> 	Compiler         	:	GCC 10.3
+
+>> 	Config           	:	Unknown
+
+>> 	Float ABI        	:	Unknown
+
+>> 	Model name       	:	VOICE_REC
+
+>> 	Model memory:    	:	RAM (0x08002314)
+
+>> 	Layers           	:	6
+
+>> 	Input_nodes      	:	15996
+
+>> 	Output_nodes     	:	8
+
+>> 	ML Lib Version   	:	120
+
+>> 	ML Lib Input Type	:	int16
+
+>> 	ML Lib Weight Type	:	int16
+
+>> 	ML Coretool Version	:	0x10200
+
+>> 
+
+>> Memory usage: 
+
+>> 	Scratch memory(dynamic)    	:   298.79 kB
+
+>> 	Persistent memory(dynamic) 	:     0.81 kB
+
+>> 	Weights & biases  	:   117.22 kB
+
+>> ***************************************************
+
+>> ML_READY
+Streaming test data...
+
+Sending frame 1/100 [                                                  ]   1%
+
+
+>> ERROR: Streaming data size (1) doesn't match NN data size (2), aborting
+
+>> 
+>> 
+Profiling task failed!
+>> 
+Restarting...
+
+>> Waiting for the data stream to begin...
+>> 
+
+Exit with error: An error of the execution. See the operation logs for details
+
+
+C:/Users/Dadan/ModusToolbox/tools_2.4/ml-coretools/ml-coretools-streaming.exe failed (-1)
